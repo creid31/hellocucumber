@@ -1,15 +1,29 @@
 package hellocucumber;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AnimalController {
-    private Animals animals;
+    private Animals animals = new Animals();
 
-    @RequestMapping(method={RequestMethod.GET},value={"/version"})
-    public String getVersion() {
-        return "1.0";
+    @GetMapping("/animals")
+    public Animals getAnimals() {
+        return animals;
     }
+
+//    @PostMapping("/animals")
+//    public Animal createAnimal(@RequestBody Animal animal) {
+//        List<Animal> list = animals.getAnimals();
+//        if (CollectionUtils.isEmpty(list)) {
+//            list = new ArrayList<>();
+//        }
+//        list.add(animal);
+//        animals.count += 1;
+//        animals.setAnimals(list);
+//        return animal;
+//    }
 }
