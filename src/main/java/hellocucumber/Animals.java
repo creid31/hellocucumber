@@ -3,11 +3,11 @@ package hellocucumber;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 @Data
 public class Animals implements Serializable {
-    List<Animal> animals;
+    private Map<String, Animal> animals;
 
-    int count;
+    private int count;
 }

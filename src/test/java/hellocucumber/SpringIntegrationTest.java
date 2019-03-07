@@ -14,15 +14,33 @@ import java.io.IOException;
 @WebAppConfiguration
 public class SpringIntegrationTest {
 
+
     @Autowired
     protected RestTemplate restTemplate;
 
-    Animals executeGet(String url) throws IOException {
+    private String url = "http://localhost:8080/animals";
+
+    Animals executeGet() throws IOException {
        return restTemplate.getForObject(url, Animals.class);
     }
 
-    Animal executePost(String url, String type) throws IOException {
-        HttpEntity<Animal> request = new HttpEntity<>(new Animal(type));
+    Animal executeGet(String type) throws IOException {
+        return restTemplate.getForObject(url + "/" + type, Animal.class);
+    }
+
+    Animal executePost(String type) throws IOException {
+        Animal animal = new Animal();
+        animal.setType(type);
+        HttpEntity<Animal> request = new HttpEntity<>(animal);
         return restTemplate.postForObject(url, request, Animal.class);
+    }
+
+    void executeDelete() throws IOException {
+        restTemplate.delete(url);
+    }
+
+    Animal executePatch(String type, Animal parent){
+        HttpEntity<Animal> request = new HttpEntity<>(parent);
+        return restTemplate.postForObject(url +"/" + type, request, Animal.class);
     }
 }
